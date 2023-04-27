@@ -2,6 +2,8 @@
 Binary Search Tree
 '''
 
+from graphviz import Digraph
+
 class Node:
 
     def __init__(self, data: int):
