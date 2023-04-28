@@ -2,7 +2,7 @@
 Binary Search Tree
 '''
 
-from graphviz import Digraph
+
 
 class Node:
 
