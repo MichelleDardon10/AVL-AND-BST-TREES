@@ -1,7 +1,8 @@
 '''
 Binary Search Tree
 '''
-
+from graphviz import Digraph
+import html
 
 
 class Node:
@@ -20,6 +21,41 @@ class BinarySearchTree:
 
     def __init__(self):
         self.root = None
+        self.dot = Digraph(comment='Binary Search Tree', graph_attr={'rankdir':'TB', 'node_attr': {'shape': 'circle', 'width': '0.6'}, 'edge_attr': {'arrowsize': '0.8'}})
+        self.node_counter = 0
+
+        
+    def add_node_to_the_graph(self, node):
+        self.node_counter += 1
+        self.dot.node(str(self.node_counter), str(node), shape="circle", style="filled", fillcolor="lightblue")
+
+    def traverse_and_add_nodes_to_the_graph(self, subtree):
+        if subtree is not None:
+            self.add_node_to_the_graph(subtree.data)
+            if subtree.left_child is not None:
+                self.add_node_to_the_graph(subtree.left_child.data)
+                self.dot.edge(str(subtree.data), str(subtree.left_child.data))
+            if subtree.right_child is not None:
+                self.add_node_to_the_graph(subtree.right_child.data)
+                self.dot.edge(str(subtree.data), str(subtree.right_child.data))
+            self.traverse_and_add_nodes_to_the_graph(subtree.left_child)
+            self.traverse_and_add_nodes_to_the_graph(subtree.right_child)
+
+    def display(self):
+        dot = Digraph()
+        self._display_helper(self.root, dot)
+        dot.render('bst', view=True)
+
+    def _display_helper(self, current, dot):
+        if current is not None:
+            dot.node(str(current.data), label=str(html.escape(str(current.data))))
+            if current.left_child is not None:
+                dot.edge(str(current.data), str(current.left_child.data))
+                self._display_helper(current.left_child, dot)
+            if current.right_child is not None:
+                dot.edge(str(current.data), str(current.right_child.data))
+                self._display_helper(current.right_child, dot)
+
 
 
     def insert(self, value: int):
