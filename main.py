@@ -1,8 +1,6 @@
 from avl import AvlTree
 from bst import BinarySearchTree
-
-#from graphviz import render
-#import random
+import random
 import time
 
 # Instantiate both Trees
@@ -11,42 +9,21 @@ bst = BinarySearchTree()
 
 
 # Inserts
-#print("--------- Inserting elements to the Tree ---------")
-'''
-for i in range(1,10):
-    avl.insert(i)
-    bst.insert(i)
-#print("curret root: {}".format(avl.root))
-'''
-bst.insert(50)
-bst.insert(20)
-bst.insert(26)
-bst.insert(12)
-bst.insert(100)
-bst.insert(90)
-bst.insert(101)
+print("--------- Inserting elements to the Tree ---------")
 
-avl.insert(50)
-avl.insert(20)
-avl.insert(26)
-avl.insert(12)
-avl.insert(100)
-avl.insert(90)
-avl.insert(101)
+def random_nodes(bst: BinarySearchTree, avl: AvlTree):
+    numbers = random.sample(range(1, 1000001), 1000000)
+    for num in numbers:
+        bst.insert(num)
+        avl.insert(num)
+random_nodes(bst, avl)
 
 # Traverse
-print("--------- Traversing Tree ---------")
+print("--------- Traversing Trees ---------")
 #bst.traverse(bst.root)
-avl.traverse(avl.root)
-avl.traverse_and_add_nodes_to_the_graph(avl.root)
-avl.display()
-
-bst.traverse(bst.root)
-bst.traverse_and_add_nodes_to_the_graph(bst.root)
-bst.display()
 '''
 # Search
-print("--------- Searching keys in the Tree ---------")
+print("--------- Searching keys in the Trees ---------")
 test_keys = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 #BENCHMARK SEARCH FUNCTION
@@ -70,9 +47,20 @@ print(f"Elapsed time in BST TREE: {elapsed_time:.6f} seconds")
 print(bst)
 
 # Min-Max 
-print("--------- Searching for min-max in Tree ---------")
+print("--------- Searching for min-max in Trees ---------")
 
 
 # Delete
-print("--------- Deleting elements from the Tree ---------")
+print("--------- Deleting elements from the Trees ---------")
+'''
+
+print("--------- Visualization of the Trees ---------")
+'''
+avl.traverse(avl.root)
+avl.traverse_and_add_nodes_to_the_graph(avl.root)
+avl.display()
+
+bst.traverse(bst.root)
+bst.traverse_and_add_nodes_to_the_graph(bst.root)
+bst.display()
 '''
