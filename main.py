@@ -7,12 +7,14 @@ import time
 avl = AVLTree()
 bst = BinarySearchTree()
 
+x = 1001
+y = 1000
 
 # Inserts
 print("--------- Inserting elements to the Tree ---------")
 
 def random_nodes(bst: BinarySearchTree, avl: AVLTree):
-    numbers = random.sample(range(1, 1000001), 1000000)
+    numbers = random.sample(range(1, x), y)
     
     for num in numbers:
         bst.insert(num)
@@ -21,13 +23,14 @@ random_nodes(bst, avl)
 
 # Traverse
 print("--------- Traversing Tree ---------")
-#bst.traverse(bst.root)
+bst.traverse(bst.root)
+avl.traverse(avl.root)
 
 
 # Search
 print("--------- Searching keys in the Trees ---------")
 
-test_numbers = random.sample(range(1, 1000001), 350000)
+test_numbers = random.sample(range(1, x), y)
 
 #BENCHMARK SEARCH FUNCTION
 start_time= time.time()
@@ -47,26 +50,31 @@ for key in test_numbers:
 end_time = time.time()
 elapsed_time2 = end_time - start_time
 print(f"Elapsed time in BST TREE: {elapsed_time2:.6f} seconds")
-#print(bst)
 
 diferencia = elapsed_time2 - elapsed_time1
 print("La diferencia fue de: ", diferencia)
-'''
+
 # Min-Max 
 print("--------- Searching for min-max in Trees ---------")
+print(avl.find_max(avl.root))
+print(avl.find_min(avl.root))
+print(bst.find_min(bst.root))
+print(bst.find_max(bst.root))
 
 
 # Delete
 print("--------- Deleting elements from the Trees ---------")
+for i in range (5):
+    x = test_numbers[random.randint(0,y)]
+    print(avl.delete(x))
+    print(bst.delete(x))
 
 
 print("--------- Visualization of the Trees ---------")
 
-#avl.traverse(avl.root)
 dot = avl.to_graphviz()
 dot.render("AVL-TREE.gv", view=True)
 
-#bst.traverse(bst.root)
+
 bst.traverse_and_add_nodes_to_the_graph(bst.root)
 bst.display()
-'''

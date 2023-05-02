@@ -1,4 +1,4 @@
-#from graphviz import Digraph
+from graphviz import Digraph
 class Node:
 
     def __init__(self, data: int) -> None:     
@@ -19,7 +19,7 @@ class AVLTree:
 
 
     def to_graphviz(self):
-        #dot = Digraph(comment='AVL Tree')
+        dot = Digraph(comment='AVL Tree')
         self._to_graphviz(dot, self.root)
         return dot
 
