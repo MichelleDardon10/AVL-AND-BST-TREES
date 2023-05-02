@@ -1,7 +1,7 @@
 '''
 AVL tree
 '''
-#from graphviz import Digraph
+from graphviz import Digraph
 import html
 
 class Node:
@@ -22,7 +22,7 @@ class AvlTree:
 
     def __init__(self):
         self.root = None
-        #self.dot = Digraph(comment='AVL Tree', graph_attr={'rankdir':'TB', 'node_attr': {'shape': 'circle', 'width': '0.6'}, 'edge_attr': {'arrowsize': '0.8'}})
+        self.dot = Digraph(comment='AVL Tree', graph_attr={'rankdir':'TB', 'node_attr': {'shape': 'circle', 'width': '0.6'}, 'edge_attr': {'arrowsize': '0.8'}})
         self.node_counter = 0
 
     #FUNCTIONS USED TO VISUALIZE TREES
@@ -59,7 +59,7 @@ class AvlTree:
                 self._display_helper(current.right_child, dot)
 
     #ends Visualization
-    
+    '''
     def insert(self, value: int):
 
         if self.root is None:
@@ -260,7 +260,7 @@ class AvlTree:
         left_height =self.get_height(subtree.parent.left_child)
         right_height=self.get_height(subtree.parent.right_child)
 
-        if abs(left_height-left_height)>1:
+        if abs(left_height-right_height)>1:
             path=[subtree.parent]+path
             self._rebalance_node(path[0],path[1],path[2])
             return
@@ -301,7 +301,7 @@ class AvlTree:
         
 
     def _right_rotate(self,z: Node):
-        y= Node()
+        #y= Node()
         sub_root= z.parent
         y= z.left_child
         t3 =y.right_child
@@ -352,15 +352,100 @@ class AvlTree:
         left=self.get_height(subtree.left_child)
         right=self.get_height(subtree.right_child)
         return subtree.left_child if left>=right else subtree.right_child
+'''
 
-    #CMD PRINT
 
-    def print_tree(self):
-        if self.root != None:
-            self._print_tree(self.root)
+    def insert(self, root, key):
+	
+		# Step 1 - Perform normal BST
+        if not root:
+            return Node(key)
+        elif key < root.data:
+            root.left = self.insert(root.left, key)
+        else:
+            root.right = self.insert(root.right, key)
 
-    def _print_tree(self, subtree: Node):
-        if subtree != None:
-            self._print_tree(subtree.left_child)
-            print ('%s, h=%d'%(str(subtree.value),subtree.height))
-            self._print_tree(subtree.right_child)
+		# Step 2 - Update the height of the
+		# ancestor node
+        root.height = 1 + max(self.getHeight(root.left),
+						self.getHeight(root.right))
+
+		# Step 3 - Get the balance factor
+        balance = self.getBalance(root)
+
+		# Step 4 - If the node is unbalanced,
+		# then try out the 4 cases
+		# Case 1 - Left Left
+        if balance > 1 and key < root.left.data:
+            return self.rightRotate(root)
+
+		# Case 2 - Right Right
+        if balance < -1 and key > root.right.data:
+            return self.leftRotate(root)
+
+		# Case 3 - Left Right
+        if balance > 1 and key > root.left.data:
+            root.left = self.leftRotate(root.left)
+            return self.rightRotate(root)
+
+		# Case 4 - Right Left
+        if balance < -1 and key < root.right.data:
+            root.right = self.rightRotate(root.right)
+            return self.leftRotate(root)
+        
+        return root
+    
+    def leftRotate(self, z):
+        
+        y = z.right
+        T2 = y.left
+
+		# Perform rotation
+        y.left = z
+        z.right = T2
+
+		# Update heights
+        z.height = 1 + max(self.getHeight(z.left),
+						self.getHeight(z.right))
+        y.height = 1 + max(self.getHeight(y.left),
+						self.getHeight(y.right))
+
+		# Return the new root
+        return y
+    
+    def rightRotate(self, z):
+        y = z.left
+        T3 = y.right
+
+		# Perform rotation
+        y.right = z
+        z.left = T3
+
+		# Update heights
+        z.height = 1 + max(self.getHeight(z.left),
+						self.getHeight(z.right))
+        y.height = 1 + max(self.getHeight(y.left),
+						self.getHeight(y.right))
+
+		# Return the new root
+        return y
+    
+    def getHeight(self, root):
+        if not root:
+            return 0
+        
+        return root.height
+    
+    def getBalance(self, root):
+        if not root:
+            return 0
+        
+        return self.getHeight(root.left) - self.getHeight(root.right)
+    
+    def preOrder(self, root):
+        if not root:
+            return
+        
+        print("{0} ".format(root.data), end="")
+        self.preOrder(root.left)
+        self.preOrder(root.right)

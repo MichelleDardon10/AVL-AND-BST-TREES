@@ -21,13 +21,7 @@ random_nodes(bst, avl)
 # Traverse
 print("--------- Traversing Tree ---------")
 #bst.traverse(bst.root)
-avl.traverse(avl.root)
-avl.traverse_and_add_nodes_to_the_graph(avl.root)
-avl.display()
 
-bst.traverse(bst.root)
-bst.traverse_and_add_nodes_to_the_graph(bst.root)
-bst.display()
 '''
 # Search
 print("--------- Searching keys in the Trees ---------")
