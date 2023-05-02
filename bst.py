@@ -1,7 +1,7 @@
 '''
 Binary Search Tree
 '''
-from graphviz import Digraph
+#from graphviz import Digraph
 import html
 
 
@@ -21,7 +21,7 @@ class BinarySearchTree:
 
     def __init__(self):
         self.root = None
-        self.dot = Digraph(comment='Binary Search Tree', graph_attr={'rankdir':'TB', 'node_attr': {'shape': 'circle', 'width': '0.6'}, 'edge_attr': {'arrowsize': '0.8'}})
+        #self.dot = Digraph(comment='Binary Search Tree', graph_attr={'rankdir':'TB', 'node_attr': {'shape': 'circle', 'width': '0.6'}, 'edge_attr': {'arrowsize': '0.8'}})
         self.node_counter = 0
 
         
