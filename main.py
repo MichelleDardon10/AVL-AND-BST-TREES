@@ -1,18 +1,19 @@
-from avl import AvlTree
+from avl import AVLTree
 from bst import BinarySearchTree
 import random
 import time
 
 # Instantiate both Trees
-avl = AvlTree()
+avl = AVLTree()
 bst = BinarySearchTree()
 
 
 # Inserts
 print("--------- Inserting elements to the Tree ---------")
 
-def random_nodes(bst: BinarySearchTree, avl: AvlTree):
-    numbers = random.sample(range(1, 1000001), 1000000)
+def random_nodes(bst: BinarySearchTree, avl: AVLTree):
+    numbers = random.sample(range(1, 21), 20)
+    root = None
     for num in numbers:
         bst.insert(num)
         avl.insert(num)
@@ -56,12 +57,11 @@ print("--------- Deleting elements from the Trees ---------")
 '''
 
 print("--------- Visualization of the Trees ---------")
-'''
-avl.traverse(avl.root)
-avl.traverse_and_add_nodes_to_the_graph(avl.root)
-avl.display()
 
-bst.traverse(bst.root)
+#avl.traverse(avl.root)
+dot = avl.to_graphviz()
+dot.render("AVL-TREE.gv", view=True)
+
+#bst.traverse(bst.root)
 bst.traverse_and_add_nodes_to_the_graph(bst.root)
 bst.display()
-'''
